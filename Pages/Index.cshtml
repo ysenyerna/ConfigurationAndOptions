@@ -1,11 +1,13 @@
 ﻿@page
+@using Microsoft.Extensions.Options
 @model IndexModel
+@inject IOptions<SiteOptions> Options;
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Micro Blog - Home</h1>
+    <h1 class="display-4">@Options.Value.SiteName - Home</h1>
 </div>
 
 @{

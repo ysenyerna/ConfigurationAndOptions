@@ -1,12 +1,40 @@
 @page
+@using Microsoft.Extensions.Options;
 @model DetailsModel
+@inject IOptions<SiteOptions> Options;
 @{
     ViewData["Title"] = @"MicroBlog - " + Model.post.Title;
 }
 
+<!-- Display post title -->
 <div class="text-center">
     <h1 class="display-4">@Model.post.Title</h1>
 </div>
 
+<!-- Display post body -->
 <p style="border-bottom:1px solid rgb(209, 209, 209);">@Model.post.CreatedUtc.ToString("MMMM dd, yyyy")</p>
-<p>@Model.post.Body</p>
+<p style="margin-bottom:50px">@Model.post.Body</p>
+
+<!-- Display comment form -->
+@{
+	if (Options.Value.EnableComments) {
+		<div class="text-center">
+			<h2 style="border-top:1px solid rgb(209, 209, 209);">Leave a Comment</h2>
+		</div>
+		<form>
+			<div>
+				<label>Name</label>
+				<br />
+				<input class="form-element" />
+			</div>
+
+			<div>
+				<label style="margin-top:15px;">Comment</label>
+				<br />
+				<textarea class="form-element"></textarea>
+			</div>
+
+			<button type="submit" style="margin-top:15px;">Post</button>
+		</form>
+	}
+}
